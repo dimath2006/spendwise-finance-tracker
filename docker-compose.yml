@@ -1,0 +1,11 @@
+services:
+
+  web:
+
+    build: .
+
+    container_name: spendwise-app
+
+    ports:
+
+      - "5000:5000"
