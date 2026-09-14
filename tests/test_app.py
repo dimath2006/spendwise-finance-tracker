@@ -1,21 +1,26 @@
+import sys
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 from app import app
 
 
 
 def test_home():
 
-    client=app.test_client()
+    client = app.test_client()
 
-    response=client.get("/")
+    response = client.get("/")
 
-    assert response.status_code==200
+    assert response.status_code == 200
 
 
 
 def test_health():
 
-    client=app.test_client()
+    client = app.test_client()
 
-    response=client.get("/health")
+    response = client.get("/health")
 
-    assert response.data==b"SpendWise Application Running"
+    assert response.data == b"SpendWise Application Running"
