@@ -22,7 +22,6 @@ def home():
     )
 
 
-
 @app.route("/add")
 def add():
 
@@ -31,20 +30,25 @@ def add():
     )
 
 
-
 @app.route("/save", methods=["POST"])
 def save():
+
+    name = request.form.get("name")
+
+    category = request.form.get("category")
+
+    amount = float(
+        request.form.get("amount")
+    )
 
 
     expense = {
 
-        "name":request.form["name"],
+        "name": name,
 
-        "category":request.form["category"],
+        "category": category,
 
-        "amount":float(
-            request.form["amount"]
-        )
+        "amount": amount
 
     }
 
@@ -63,7 +67,7 @@ def health():
 
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
 
     app.run(
         host="0.0.0.0",
