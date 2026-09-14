@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+
+<title>
+SpendWise
+</title>
+
+
+<link rel="stylesheet" href="/static/style.css">
+
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+<h1>
+💰 SpendWise
+</h1>
+
+
+<h2>
+Personal Finance Expense Tracker
+</h2>
+
+
+<h3>
+Total Expense:
+Rs.{{total}}
+</h3>
+
+
+
+<a href="/add">
+
+<button>
+Add Expense
+</button>
+
+</a>
+
+
+
+<h2>
+Expense History
+</h2>
+
+
+
+<table>
+
+
+<tr>
+
+<th>Name</th>
+
+<th>Category</th>
+
+<th>Amount</th>
+
+</tr>
+
+
+
+{% for expense in expenses %}
+
+
+<tr>
+
+<td>
+{{expense.name}}
+</td>
+
+
+<td>
+{{expense.category}}
+</td>
+
+
+<td>
+Rs.{{expense.amount}}
+</td>
+
+
+</tr>
+
+
+{% endfor %}
+
+
+</table>
+
+
+</div>
+
+
+</body>
+
+
+</html>
