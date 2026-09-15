@@ -1,5 +1,4 @@
-from flask import Flask, render_template, request, redirect
-
+from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
@@ -10,20 +9,14 @@ expenses = []
 @app.route("/")
 def home():
 
-    total = sum(
-        item["amount"]
-        for item in expenses
-    )
-
     return render_template(
         "index.html",
-        expenses=expenses,
-        total=total
+        expenses=expenses
     )
 
 
-@app.route("/add")
-def add():
+@app.route("/add_expense")
+def add_expense():
 
     return render_template(
         "add_expense.html"
@@ -33,37 +26,32 @@ def add():
 @app.route("/save", methods=["POST"])
 def save():
 
-    name = request.form.get("name")
-
-    category = request.form.get("category")
+    title = request.form["title"]
 
     amount = float(
-        request.form.get("amount")
+        request.form["amount"]
     )
 
+    category = request.form["category"]
 
-    expense = {
+    expenses.append(
+        {
+            "title": title,
+            "amount": amount,
+            "category": category
+        }
+    )
 
-        "name": name,
-
-        "category": category,
-
-        "amount": amount
-
-    }
-
-
-    expenses.append(expense)
-
-
-    return redirect("/")
-
+    return render_template(
+        "index.html",
+        expenses=expenses
+    )
 
 
 @app.route("/health")
 def health():
 
-    return "SpendWise Application Running"
+    return "Application is running"
 
 
 

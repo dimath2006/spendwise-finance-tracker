@@ -1,7 +1,16 @@
 import sys
-from pathlib import Path
+import os
 
-sys.path.insert(0, str(Path(__file__).parent.parent))
+sys.path.insert(
+    0,
+    os.path.abspath(
+        os.path.join(
+            os.path.dirname(__file__),
+            ".."
+        )
+    )
+)
+
 
 from app import app
 
@@ -23,4 +32,4 @@ def test_health():
 
     response = client.get("/health")
 
-    assert response.data == b"SpendWise Application Running"
+    assert response.data == b"Application is running"
