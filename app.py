@@ -1,59 +1,61 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 
 app = Flask(__name__)
 
-
+# Temporary storage
 expenses = []
 
 
-# Home page
 @app.route("/")
 def home():
+
+    total = sum(
+        expense["amount"]
+        for expense in expenses
+    )
+
     return render_template(
         "index.html",
-        expenses=expenses
+        expenses=expenses,
+        total=total
     )
 
 
-# Add expense page
-# Supports both /add and /add_expense
-@app.route("/add")
 @app.route("/add_expense")
 def add_expense():
+
     return render_template(
         "add_expense.html"
     )
 
 
-# Save expense data
 @app.route("/save", methods=["POST"])
 def save():
 
-    title = request.form["title"]
+    name = request.form["name"]
+
+    category = request.form["category"]
 
     amount = float(
         request.form["amount"]
     )
 
-    category = request.form["category"]
 
     expenses.append(
         {
-            "title": title,
-            "amount": amount,
-            "category": category
+            "name": name,
+            "category": category,
+            "amount": amount
         }
     )
 
-    return render_template(
-        "index.html",
-        expenses=expenses
-    )
+
+    return redirect("/")
 
 
-# Health check endpoint
 @app.route("/health")
 def health():
+
     return "Application is running"
 
 
